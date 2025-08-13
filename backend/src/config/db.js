@@ -14,9 +14,11 @@ export const connectDB = async () => {
        console.log("Connected to MongoDB✅");
 
     } catch (error) {
-        console.log("❌ Failed to connect to MongoDB");
-        console.log("Error details:", error.message);
-        console.log("Full error:", error);
-        process.exit(1);
-    }
-};
+        console.error("❌ Failed to connect to MongoDB");
+        console.error("Error details:", error.message);
+       
+        if (process.env.NODE_ENV !== "production") {
+          console.error("Full error:", error);
+        }
+        throw error;
+    }};
